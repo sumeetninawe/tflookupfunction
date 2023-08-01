@@ -1,0 +1,27 @@
+resource "aws_security_group" "web" {
+  name        = "web"
+  description = "Security group for web servers"
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  tags = {
+    Name = "web"
+  }
+}
+
+locals {
+  web_sg_id = lookup(aws_security_group.web, "id", "")
+}
+
+output "my_value_output" {
+  value = local.web_sg_id
+}

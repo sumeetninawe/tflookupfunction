@@ -1,0 +1,15 @@
+variable "aws_availability_zones" {
+  type = map(any)
+  default = {
+    us-east = ["us-east-1", "us-east-2"]
+    us-west = ["us-west-1", "us-west-2"]
+  }
+}
+
+locals {
+  my_value = lookup(var.aws_availability_zones, "us-west", "")
+}
+
+output "my_value_output" {
+  value = local.my_value
+}
